@@ -20,28 +20,28 @@ function Options:AttachRight(frame, attachedTo, offsetX, offsetY)
 	local offsetX = offsetX or -30
 	local offsetY = offsetY or 0
 
-	frame:SetPoint("RIGHT", attachedTo, "RIGHT", offsetX, offsetY)
+	frame:SetPoint("CENTER", attachedTo, "RIGHT", offsetX, offsetY)
 end
 
-function Options:AttachLeft(frame, attachedTo, offset)
+function Options:AttachLeft(frame, attachedTo, offsetX, offsetY)
 	local offsetX = offsetX or 30
 	local offsetY = offsetY or 0
 
-	frame:SetPoint("LEFT", attachedTo, "LEFT", offsetX, offsetY)
+	frame:SetPoint("CENTER", attachedTo, "LEFT", offsetX, offsetY)
 end
 
 function Options:AttachAbove(frame, attachedTo, offsetX, offsetY)
 	local offsetX = offsetX or 0
 	local offsetY = offsetY or 60
 
-	frame:SetPoint("TOP", attachedTo, "TOP", offsetX, offsetY)
+	frame:SetPoint("CENTER", attachedTo, "TOP", offsetX, offsetY)
 end
 
 function Options:AttachBelow(frame, attachedTo, offsetX, offsetY)
 	local offsetX = offsetX or 0
 	local offsetY = offsetY or -60
 
-	frame:SetPoint("BOTTOM", attachedTo, "BOTTOM", offsetX, offsetY)
+	frame:SetPoint("CENTER", attachedTo, "BOTTOM", offsetX, offsetY)
 end
 
 function Options:CreatePanel(title, icon)
