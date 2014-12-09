@@ -71,5 +71,13 @@ function Addon:OnTestDropDownMenu1ValueChanged(value, id)
 	print("TestDropDownMenu1 value changed: ", value, id)
 end
 
+function Addon:OnInterfaceOptionsOkayButtonClicked()
+	print("Addon:OnInterfaceOptionsOkayButtonClicked clicked")
+end
+
+function Addon:OnInterfaceOptionsCancelButtonClicked()
+	print("Addon:OnInterfaceOptionsCancelButtonClicked clicked")
+end
+
 Events:RegisterEvent("ADDON_LOADED")
 Events:SetScript("OnEvent", ADDON_LOADED)

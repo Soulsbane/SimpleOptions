@@ -44,7 +44,7 @@ function Options:AttachBelow(frame, attachedTo, offsetX, offsetY)
 	frame:SetPoint("CENTER", attachedTo, "BOTTOM", offsetX, offsetY)
 end
 
-function Options:CreatePanel(title, icon)
+function Options:CreatePanel(title, icon) -- TODO: Possible add a bool for a slash command that opens to options panel
 	local name = AddonName .. "OptionsFrame"
 	local version = GetAddOnMetadata(AddonName, "Version") or ""
 	local title = title or AddonName
@@ -60,6 +60,9 @@ function Options:CreatePanel(title, icon)
 	else
 		text:SetText(title .. version)
 	end
+
+	OptionsFrame.okay = function() DispatchMethod("OnInterfaceOptionsOkayButtonClicked") end
+	OptionsFrame.cancel = function() DispatchMethod("OnInterfaceOptionsCancelButtonClicked") end
 
 	InterfaceOptions_AddCategory(OptionsFrame)
 	return OptionsFrame
