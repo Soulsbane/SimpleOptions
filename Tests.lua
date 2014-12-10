@@ -29,7 +29,7 @@ local function ADDON_LOADED(frame, event, ...)
 		 }
 
 		local testDropDownMenu1 = Options:AddDropDownMenu("TestDropDownMenu1", menu)
-		Options:AttachBelow(testDropDownMenu1, testSlider1.frame)
+		testDropDownMenu1:AttachBelow(testSlider1)
 	end
 end
 

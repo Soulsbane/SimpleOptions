@@ -118,6 +118,27 @@ function Options:AddSlider(name, min, max, startValue, step)
 	return slider
 end
 
+function Options:AddDropDownMenu(name, menuList)
+	local dropDownMenuFrame = FrameObject:New("Button", name, "UIDropDownMenuTemplate")
+
+ 	UIDropDownMenu_Initialize(dropDownMenuFrame.frame, function(self)
+		local info = UIDropDownMenu_CreateInfo()
+
+		for k,v in pairs(menuList) do
+			info = UIDropDownMenu_CreateInfo()
+			info.text = v
+			info.value = v
+			info.func = function(self)
+				UIDropDownMenu_SetSelectedID(dropDownMenuFrame.frame, self:GetID())
+				DispatchMethod("On" .. name .. "ValueChanged", self:GetText(), self:GetID())
+			end
+			UIDropDownMenu_AddButton(info, level)
+		end
+	end)
+
+	return dropDownMenuFrame
+end
+
 function Options:AttachRight(frame, attachedTo, offsetX, offsetY)
 	local offsetX = offsetX or -30
 	local offsetY = offsetY or 0
@@ -168,28 +189,6 @@ function Options:CreatePanel(title, icon) -- TODO: Possible add a bool for a sla
 
 	InterfaceOptions_AddCategory(OptionsFrame)
 	return OptionsFrame
-end
-
-function Options:AddDropDownMenu(name, menuList)
-	local frameName = OptionsFrame:GetName() .. name
-	local dropDownMenuFrame = CreateFrame("Button", frameName, OptionsFrame, "UIDropDownMenuTemplate")
-
- 	UIDropDownMenu_Initialize(dropDownMenuFrame, function(self)
-		local info = UIDropDownMenu_CreateInfo()
-
-		for k,v in pairs(menuList) do
-			info = UIDropDownMenu_CreateInfo()
-			info.text = v
-			info.value = v
-			info.func = function(self)
-				UIDropDownMenu_SetSelectedID(dropDownMenuFrame, self:GetID())
-				DispatchMethod("On" .. name .. "ValueChanged", self:GetText(), self:GetID())
-			end
-			UIDropDownMenu_AddButton(info, level)
-		end
-	end)
-
-	return dropDownMenuFrame
 end
 
 Addon.Options = Options
