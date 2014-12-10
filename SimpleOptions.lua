@@ -80,6 +80,26 @@ function Options:AddCheckButton(name, label)
 	return button
 end
 
+function Options:AddEditBox(name, width, height)
+	local width = width or 30
+	local height = height or 20
+	local editBox = FrameObject:New("EditBox", name, "InputBoxTemplate")
+
+	editBox.frame:SetWidth(width)
+	editBox.frame:SetHeight(height)
+	editBox.frame:SetAutoFocus(false)
+
+	editBox.frame:SetScript("OnTextChanged", function(self, userInput)
+		DispatchMethod("On" .. name .. "ValueChanged", editBox.frame:GetText())
+	end)
+
+	editBox.frame:SetScript("OnEnterPressed", function(self, userInput)
+		DispatchMethod("On" .. name .. "EnterPressed", editBox.frame:GetText())
+	end)
+
+	return editBox
+end
+
 function Options:AttachRight(frame, attachedTo, offsetX, offsetY)
 	local offsetX = offsetX or -30
 	local offsetY = offsetY or 0
@@ -130,26 +150,6 @@ function Options:CreatePanel(title, icon) -- TODO: Possible add a bool for a sla
 
 	InterfaceOptions_AddCategory(OptionsFrame)
 	return OptionsFrame
-end
-
-function Options:AddEditBox(name, width, height)
-	local width = width or 30
-	local height = height or 20
-	local editBox = CreateWidgetFrame("EditBox", name, "InputBoxTemplate")
-
-	editBox:SetWidth(width)
-	editBox:SetHeight(height)
-	editBox:SetAutoFocus(false)
-
-	editBox:SetScript("OnTextChanged", function(self, userInput)
-		DispatchMethod("On" .. name .. "ValueChanged", editBox:GetText())
-	end)
-
-	editBox:SetScript("OnEnterPressed", function(self, userInput)
-		DispatchMethod("On" .. name .. "EnterPressed", editBox:GetText())
-	end)
-
-	return editBox
 end
 
 function Options:AddSlider(name, min, max, startValue, step)

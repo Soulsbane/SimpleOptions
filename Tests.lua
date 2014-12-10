@@ -19,7 +19,7 @@ local function ADDON_LOADED(frame, event, ...)
 		Options:AttachBelow(testSlider1, testCheckButton1.frame)
 
 		local testEditBox1 = Options:AddEditBox("TestEditBox1")
-		Options:AttachAbove(testEditBox1, testCheckButton1.frame)
+		testEditBox1:AttachAbove(testCheckButton1)
 
 		local menu = {
 			"Alpha",
