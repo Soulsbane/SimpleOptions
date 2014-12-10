@@ -7,13 +7,13 @@ local function ADDON_LOADED(frame, event, ...)
 		Options:CreatePanel()
 
 		local testButton1 = Options:AddButton("TestButton1")
-		testButton1:SetPoint("TOPLEFT", 12, -72)
+		testButton1.frame:SetPoint("TOPLEFT", 12, -72)
 
 		local testButton2 = Options:AddButton("TestButton2")
-		Options:AttachBelow(testButton2, testButton1)
+		testButton2:AttachBelow(testButton1)
 
 		local testCheckButton1 = Options:AddCheckButton("TestCheckButton1", "Hello checkbutton")
-		Options:AttachRight(testCheckButton1, testButton2, 70)
+		Options:AttachRight(testCheckButton1, testButton2.frame, 70)
 
 		local testSlider1 = Options:AddSlider("TestSlider1", 1, 100, 1, 1)
 		Options:AttachBelow(testSlider1, testCheckButton1)

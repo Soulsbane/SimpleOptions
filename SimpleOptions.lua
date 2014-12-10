@@ -4,6 +4,9 @@ local AddonName, Addon = ...
 local Options = {}
 local OptionsFrame
 
+local FrameObject = {}
+FrameObject.__index = FrameObject
+
 local function DispatchMethod(func, ...)
 	if type(func) == "string" and Addon[func] then
 		Addon[func](Addon, ...)
@@ -14,6 +17,55 @@ end
 
 local function CreateWidgetFrame(frameType, name, template)
 	return CreateFrame(frameType, OptionsFrame:GetName() .. name, OptionsFrame, template)
+end
+
+function FrameObject:New(frameType, name, template)
+	local self = {}
+
+	setmetatable(self, FrameObject)
+	self.frame = CreateFrame(frameType, OptionsFrame:GetName() .. name, OptionsFrame, template)
+
+	return self
+end
+
+function FrameObject:AttachRight(attachedTo, offsetX, offsetY)
+	local offsetX = offsetX or -30
+	local offsetY = offsetY or 0
+
+	self.frame:SetPoint("CENTER", attachedTo.frame, "RIGHT", offsetX, offsetY)
+end
+
+function FrameObject:AttachLeft(attachedTo, offsetX, offsetY)
+	local offsetX = offsetX or 30
+	local offsetY = offsetY or 0
+
+	self.frame:SetPoint("CENTER", attachedTo.frame, "LEFT", offsetX, offsetY)
+end
+
+function FrameObject:AttachAbove(attachedTo, offsetX, offsetY)
+	local offsetX = offsetX or 0
+	local offsetY = offsetY or 60
+
+	frame:SetPoint("CENTER", attachedTo.frame, "TOP", offsetX, offsetY)
+end
+
+function FrameObject:AttachBelow(attachedTo, offsetX, offsetY)
+	local offsetX = offsetX or 0
+	local offsetY = offsetY or -60
+
+	self.frame:SetPoint("CENTER", attachedTo.frame, "BOTTOM", offsetX, offsetY)
+end
+
+function Options:AddButton(name, width, height)
+	local button = FrameObject:New("Button", name, "UIPanelButtonTemplate")
+
+	button.frame:SetText(name)
+	button.frame:SetWidth(button.frame:GetTextWidth() + 20)
+	button.frame:SetScript("OnClick", function(self)
+		DispatchMethod("On" .. name .. "Clicked")
+	end)
+
+	return button
 end
 
 function Options:AttachRight(frame, attachedTo, offsetX, offsetY)
@@ -66,18 +118,6 @@ function Options:CreatePanel(title, icon) -- TODO: Possible add a bool for a sla
 
 	InterfaceOptions_AddCategory(OptionsFrame)
 	return OptionsFrame
-end
-
-function Options:AddButton(name, width, height)
-	local button = CreateFrame("Button", OptionsFrame:GetName() .. name, OptionsFrame, "UIPanelButtonTemplate")
-
-	button:SetText(name)
-	button:SetWidth(button:GetTextWidth() + 20)
-	button:SetScript("OnClick", function(self)
-		DispatchMethod("On" .. name .. "Clicked")
-	end)
-
-	return button
 end
 
 function Options:AddCheckButton(name, label)
