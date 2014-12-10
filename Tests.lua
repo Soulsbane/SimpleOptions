@@ -7,7 +7,7 @@ local function ADDON_LOADED(frame, event, ...)
 		Options:CreatePanel()
 
 		local testButton1 = Options:AddButton("TestButton1")
-		testButton1.frame:SetPoint("TOPLEFT", 12, -72)
+		testButton1:SetPoint("TOPLEFT", 10, -70)
 
 		local testButton2 = Options:AddButton("TestButton2")
 		testButton2:AttachBelow(testButton1)

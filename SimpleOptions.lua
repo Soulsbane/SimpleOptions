@@ -15,10 +15,6 @@ local function DispatchMethod(func, ...)
 	end
 end
 
-local function CreateWidgetFrame(frameType, name, template)
-	return CreateFrame(frameType, OptionsFrame:GetName() .. name, OptionsFrame, template)
-end
-
 function FrameObject:New(frameType, name, template)
 	local self = {}
 
@@ -26,6 +22,11 @@ function FrameObject:New(frameType, name, template)
 	self.frame = CreateFrame(frameType, OptionsFrame:GetName() .. name, OptionsFrame, template)
 
 	return self
+end
+
+-- INFO: Rather pointless but makes the code cleaner if you don't want to use Attach methods.
+function FrameObject:SetPoint(point, relativeTo, relativePoint, offsetX, offsetY)
+	self.frame:SetPoint(point, relativeTo, relativePoint, offsetX, offsetY)
 end
 
 function FrameObject:AttachRight(attachedTo, offsetX, offsetY)
