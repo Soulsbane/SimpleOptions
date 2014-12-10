@@ -100,6 +100,24 @@ function Options:AddEditBox(name, width, height)
 	return editBox
 end
 
+function Options:AddSlider(name, min, max, startValue, step)
+	local frameName = OptionsFrame:GetName() .. name
+	local slider = FrameObject:New("Slider", name, "OptionsSliderTemplate")
+
+	slider.frame:SetMinMaxValues(min, max)
+	slider.frame:SetValue(startValue)
+	slider.frame:SetValueStep(step)
+	_G[frameName.."Low"]:SetText(tostring(min)) --FIXME: We should really add parameters for these three.
+	_G[frameName.."High"]:SetText(tostring(max))
+	_G[frameName.."Text"]:SetText(name)
+
+	slider.frame:SetScript("OnValueChanged", function(self, value)
+		DispatchMethod("On" .. name .. "ValueChanged", value)
+	end)
+
+	return slider
+end
+
 function Options:AttachRight(frame, attachedTo, offsetX, offsetY)
 	local offsetX = offsetX or -30
 	local offsetY = offsetY or 0
@@ -150,24 +168,6 @@ function Options:CreatePanel(title, icon) -- TODO: Possible add a bool for a sla
 
 	InterfaceOptions_AddCategory(OptionsFrame)
 	return OptionsFrame
-end
-
-function Options:AddSlider(name, min, max, startValue, step)
-	local frameName = OptionsFrame:GetName() .. name
-	local slider = CreateWidgetFrame("Slider", name, "OptionsSliderTemplate")
-
-	slider:SetMinMaxValues(min, max)
-	slider:SetValue(startValue)
-	slider:SetValueStep(step)
-	_G[frameName.."Low"]:SetText(tostring(min)) --FIXME: We should really add parameters for these three.
-	_G[frameName.."High"]:SetText(tostring(max))
-	_G[frameName.."Text"]:SetText(name)
-
-	slider:SetScript("OnValueChanged", function(self, value)
-		DispatchMethod("On" .. name .. "ValueChanged", value)
-	end)
-
-	return slider
 end
 
 function Options:AddDropDownMenu(name, menuList)

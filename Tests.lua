@@ -16,7 +16,7 @@ local function ADDON_LOADED(frame, event, ...)
 		testCheckButton1:AttachRight(testButton2, 70)
 
 		local testSlider1 = Options:AddSlider("TestSlider1", 1, 100, 1, 1)
-		Options:AttachBelow(testSlider1, testCheckButton1.frame)
+		testSlider1:AttachBelow(testCheckButton1)
 
 		local testEditBox1 = Options:AddEditBox("TestEditBox1")
 		testEditBox1:AttachAbove(testCheckButton1)
@@ -29,7 +29,7 @@ local function ADDON_LOADED(frame, event, ...)
 		 }
 
 		local testDropDownMenu1 = Options:AddDropDownMenu("TestDropDownMenu1", menu)
-		Options:AttachBelow(testDropDownMenu1, testSlider1)
+		Options:AttachBelow(testDropDownMenu1, testSlider1.frame)
 	end
 end
 
