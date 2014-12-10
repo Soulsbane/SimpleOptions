@@ -68,6 +68,30 @@ function Options:AddButton(name, width, height)
 	return button
 end
 
+function Options:CreatePanel(title, icon) -- TODO: Possible add a bool for a slash command that opens to options panel
+	local name = AddonName .. "OptionsFrame"
+	local version = GetAddOnMetadata(AddonName, "Version") or ""
+	local title = title or AddonName
+
+	OptionsFrame = CreateFrame("Frame", name, InterfaceOptionsFramePanelContainer)
+	OptionsFrame.name = AddonName
+
+	local text = OptionsFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
+	text:SetPoint("TOPLEFT", 16, -16)
+
+	if icon then
+		text:SetFormattedText("|T%s:%d|t %s %s", icon, 16, title, version)
+	else
+		text:SetText(title .. version)
+	end
+
+	OptionsFrame.okay = function() DispatchMethod("OnInterfaceOptionsOkayButtonClicked") end
+	OptionsFrame.cancel = function() DispatchMethod("OnInterfaceOptionsCancelButtonClicked") end
+
+	InterfaceOptions_AddCategory(OptionsFrame)
+	return OptionsFrame
+end
+
 function Options:AddCheckButton(name, label)
 	local button = FrameObject:New("CheckButton", name, "InterfaceOptionsCheckButtonTemplate")
 	local label = label or name
@@ -137,58 +161,6 @@ function Options:AddDropDownMenu(name, menuList)
 	end)
 
 	return dropDownMenuFrame
-end
-
-function Options:AttachRight(frame, attachedTo, offsetX, offsetY)
-	local offsetX = offsetX or -30
-	local offsetY = offsetY or 0
-
-	frame:SetPoint("CENTER", attachedTo, "RIGHT", offsetX, offsetY)
-end
-
-function Options:AttachLeft(frame, attachedTo, offsetX, offsetY)
-	local offsetX = offsetX or 30
-	local offsetY = offsetY or 0
-
-	frame:SetPoint("CENTER", attachedTo, "LEFT", offsetX, offsetY)
-end
-
-function Options:AttachAbove(frame, attachedTo, offsetX, offsetY)
-	local offsetX = offsetX or 0
-	local offsetY = offsetY or 60
-
-	frame:SetPoint("CENTER", attachedTo, "TOP", offsetX, offsetY)
-end
-
-function Options:AttachBelow(frame, attachedTo, offsetX, offsetY)
-	local offsetX = offsetX or 0
-	local offsetY = offsetY or -60
-
-	frame:SetPoint("CENTER", attachedTo, "BOTTOM", offsetX, offsetY)
-end
-
-function Options:CreatePanel(title, icon) -- TODO: Possible add a bool for a slash command that opens to options panel
-	local name = AddonName .. "OptionsFrame"
-	local version = GetAddOnMetadata(AddonName, "Version") or ""
-	local title = title or AddonName
-
-	OptionsFrame = CreateFrame("Frame", name, InterfaceOptionsFramePanelContainer)
-	OptionsFrame.name = AddonName
-
-	local text = OptionsFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
-	text:SetPoint("TOPLEFT", 16, -16)
-
-	if icon then
-		text:SetFormattedText("|T%s:%d|t %s %s", icon, 16, title, version)
-	else
-		text:SetText(title .. version)
-	end
-
-	OptionsFrame.okay = function() DispatchMethod("OnInterfaceOptionsOkayButtonClicked") end
-	OptionsFrame.cancel = function() DispatchMethod("OnInterfaceOptionsCancelButtonClicked") end
-
-	InterfaceOptions_AddCategory(OptionsFrame)
-	return OptionsFrame
 end
 
 Addon.Options = Options
