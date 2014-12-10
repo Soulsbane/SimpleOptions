@@ -46,7 +46,7 @@ function FrameObject:AttachAbove(attachedTo, offsetX, offsetY)
 	local offsetX = offsetX or 0
 	local offsetY = offsetY or 60
 
-	frame:SetPoint("CENTER", attachedTo.frame, "TOP", offsetX, offsetY)
+	self.frame:SetPoint("CENTER", attachedTo.frame, "TOP", offsetX, offsetY)
 end
 
 function FrameObject:AttachBelow(attachedTo, offsetX, offsetY)
@@ -63,6 +63,18 @@ function Options:AddButton(name, width, height)
 	button.frame:SetWidth(button.frame:GetTextWidth() + 20)
 	button.frame:SetScript("OnClick", function(self)
 		DispatchMethod("On" .. name .. "Clicked")
+	end)
+
+	return button
+end
+
+function Options:AddCheckButton(name, label)
+	local button = FrameObject:New("CheckButton", name, "InterfaceOptionsCheckButtonTemplate")
+	local label = label or name
+
+	_G[button.frame:GetName() .. "Text"]:SetText(label)
+	button.frame:SetScript("OnClick", function(self)
+		DispatchMethod("On" .. name .. "Clicked", button.frame:GetChecked())
 	end)
 
 	return button
@@ -118,18 +130,6 @@ function Options:CreatePanel(title, icon) -- TODO: Possible add a bool for a sla
 
 	InterfaceOptions_AddCategory(OptionsFrame)
 	return OptionsFrame
-end
-
-function Options:AddCheckButton(name, label)
-	local button = CreateWidgetFrame("CheckButton", name, "InterfaceOptionsCheckButtonTemplate")
-	local label = label or name
-
-	_G[button:GetName() .. "Text"]:SetText(label)
-	button:SetScript("OnClick", function(self)
-		DispatchMethod("On" .. name .. "Clicked", button:GetChecked())
-	end)
-
-	return button
 end
 
 function Options:AddEditBox(name, width, height)

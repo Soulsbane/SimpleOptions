@@ -13,13 +13,13 @@ local function ADDON_LOADED(frame, event, ...)
 		testButton2:AttachBelow(testButton1)
 
 		local testCheckButton1 = Options:AddCheckButton("TestCheckButton1", "Hello checkbutton")
-		Options:AttachRight(testCheckButton1, testButton2.frame, 70)
+		testCheckButton1:AttachRight(testButton2, 70)
 
 		local testSlider1 = Options:AddSlider("TestSlider1", 1, 100, 1, 1)
-		Options:AttachBelow(testSlider1, testCheckButton1)
+		Options:AttachBelow(testSlider1, testCheckButton1.frame)
 
 		local testEditBox1 = Options:AddEditBox("TestEditBox1")
-		Options:AttachAbove(testEditBox1, testCheckButton1)
+		Options:AttachAbove(testEditBox1, testCheckButton1.frame)
 
 		local menu = {
 			"Alpha",
