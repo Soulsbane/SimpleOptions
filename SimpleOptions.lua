@@ -57,18 +57,6 @@ function FrameObject:AttachBelow(attachedTo, offsetX, offsetY)
 	self.frame:SetPoint("CENTER", attachedTo.frame, "BOTTOM", offsetX, offsetY)
 end
 
-function Options:AddButton(name, width, height)
-	local button = FrameObject:New("Button", name, "UIPanelButtonTemplate")
-
-	button.frame:SetText(name)
-	button.frame:SetWidth(button.frame:GetTextWidth() + 20)
-	button.frame:SetScript("OnClick", function(self)
-		DispatchMethod("On" .. name .. "Clicked")
-	end)
-
-	return button
-end
-
 function Options:CreatePanel(title, icon) -- TODO: Possible add a bool for a slash command that opens to options panel
 	local name = AddonName .. "OptionsFrame"
 	local version = GetAddOnMetadata(AddonName, "Version") or ""
@@ -91,6 +79,18 @@ function Options:CreatePanel(title, icon) -- TODO: Possible add a bool for a sla
 
 	InterfaceOptions_AddCategory(OptionsFrame)
 	return OptionsFrame
+end
+
+function Options:AddButton(name, width, height)
+	local button = FrameObject:New("Button", name, "UIPanelButtonTemplate")
+
+	button.frame:SetText(name)
+	button.frame:SetWidth(button.frame:GetTextWidth() + 20)
+	button.frame:SetScript("OnClick", function(self)
+		DispatchMethod("On" .. name .. "Clicked")
+	end)
+
+	return button
 end
 
 function Options:AddCheckButton(name, label)
