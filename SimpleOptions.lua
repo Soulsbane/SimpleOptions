@@ -81,7 +81,7 @@ function Options:CreatePanel(title, icon) -- TODO: Possible add a bool for a sla
 	return OptionsFrame
 end
 
-function Options:AddButton(name, width, height)
+function Options:AddButton(name)
 	local button = FrameObject:New("Button", name, "UIPanelButtonTemplate")
 
 	button.frame:SetText(name)
