@@ -81,8 +81,9 @@ function Options:CreatePanel(title, icon) -- TODO: Possible add a bool for a sla
 	return OptionsFrame
 end
 
-function Options:AddButton(name)
-	local button = FrameObject:New("Button", name, "UIPanelButtonTemplate")
+function Options:AddButton(name, template)
+	local  template = template or "UIPanelButtonTemplate"
+	local button = FrameObject:New("Button", name, template)
 
 	button.frame:SetText(name)
 	button.frame:SetWidth(button.frame:GetTextWidth() + 20)
@@ -106,10 +107,11 @@ function Options:AddCheckButton(name, label, template)
 	return button
 end
 
-function Options:AddEditBox(name, width, height)
+function Options:AddEditBox(name, width, height, template)
+	local template = template or "InputBoxTemplate"
 	local width = width or 30
 	local height = height or 20
-	local editBox = FrameObject:New("EditBox", name, "InputBoxTemplate")
+	local editBox = FrameObject:New("EditBox", name, template)
 
 	editBox.frame:SetWidth(width)
 	editBox.frame:SetHeight(height)
@@ -126,9 +128,10 @@ function Options:AddEditBox(name, width, height)
 	return editBox
 end
 
-function Options:AddSlider(name, min, max, startValue, step)
+function Options:AddSlider(name, min, max, startValue, step, template)
+	local template = template or "OptionsSliderTemplate"
 	local frameName = OptionsFrame:GetName() .. name
-	local slider = FrameObject:New("Slider", name, "OptionsSliderTemplate")
+	local slider = FrameObject:New("Slider", name, template)
 
 	slider.frame:SetMinMaxValues(min, max)
 	slider.frame:SetValue(startValue)
