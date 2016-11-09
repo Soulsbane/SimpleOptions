@@ -30,6 +30,9 @@ local function ADDON_LOADED(frame, event, ...)
 
 		local testDropDownMenu1 = Options:AddDropDownMenu("TestDropDownMenu1", menu)
 		testDropDownMenu1:AttachBelow(testSlider1)
+
+		local testRadioButton1 = Options:AddCheckButton("TestRadioButton1", "A Radio", "UIRadioButtonTemplate")
+		testRadioButton1:AttachRight(testSlider1, 70)
 	end
 end
 
@@ -38,6 +41,14 @@ function Addon:OnTestCheckButton1Clicked(enabled)
 		print("OnTestCheckButton1Clicked: is enabled")
 	else
 		print("OnTestCheckButton1Clicked: is disabled")
+	end
+end
+
+function Addon:OnTestRadioButton1Clicked(enabled)
+	if enabled then
+		print("OnTestRadioButton1Clicked: is enabled")
+	else
+		print("OnTestRadioButton1Clicked: is disabled")
 	end
 end
 

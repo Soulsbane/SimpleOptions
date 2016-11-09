@@ -93,8 +93,9 @@ function Options:AddButton(name)
 	return button
 end
 
-function Options:AddCheckButton(name, label)
-	local button = FrameObject:New("CheckButton", name, "InterfaceOptionsCheckButtonTemplate")
+function Options:AddCheckButton(name, label, template)
+	local template = template or "InterfaceOptionsCheckButtonTemplate"
+	local button = FrameObject:New("CheckButton", name, template)
 	local label = label or name
 
 	_G[button.frame:GetName() .. "Text"]:SetText(label)
