@@ -74,8 +74,8 @@ function Options:CreatePanel(title, icon) -- TODO: Possible add a bool for a sla
 		text:SetText(title .. version)
 	end
 
-	OptionsFrame.okay = function() DispatchMethod("OnInterfaceOptionsOkayButtonClicked") end
-	OptionsFrame.cancel = function() DispatchMethod("OnInterfaceOptionsCancelButtonClicked") end
+	OptionsFrame.okay = function() DispatchMethod("OnOptionsOkayButtonClicked") end
+	OptionsFrame.cancel = function() DispatchMethod("OnOptionsCancelButtonClicked") end
 
 	InterfaceOptions_AddCategory(OptionsFrame)
 	return OptionsFrame
