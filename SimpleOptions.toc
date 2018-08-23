@@ -1,4 +1,4 @@
-## Interface: 60000
+## Interface: 80000
 ## Title: SimpleOptions
 ## Notes: Bare bones way of adding options to wow's addon interface
 ## Author: Raijinsoft
